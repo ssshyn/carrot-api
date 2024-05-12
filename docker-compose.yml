@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  carrot-api:
+    image: sehyunkim/carrot-api:v0.1
+    ports: 
+      - 8080:8080
+    networks:
+      - carrot
+  db:
+    image: mysql:8.0
+    container_name: mysql-carrot
+    restart: no
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql/:/var/lib/mysql
+    platform: linux/x86_64
+    networks:
+      - carrot
+
+networks:
+  carrot:
